@@ -11,7 +11,6 @@ const createAccount = async (req, res) => {
                 collectibles: []
             }
         });
-        const id = segments[1];
         res.send({
             status: 200,
             id,
@@ -32,8 +31,8 @@ const updateAccount = async (req, res) => {
         const { id, money, collectables } = dc;
         const DC = db.collection('dcollections').doc(id);   
         const resp = await DC.update({
-            money,
-            collectables
+            money: dc.money,
+            collectables: []
         });
         res.send({
             status: 200,
@@ -47,16 +46,24 @@ const updateAccount = async (req, res) => {
 const CompraVenta = async (req, res) => {
     try{
         const {body: dc } = req;
-        const DC = db.collection('dcollections');   
+        const DC = db.collection('dcollections'); 
+        const resp = await DC.update({
+            money: dc.money,
+            collectables:[{
+                collection_name: dc.collection_name,
+                amount: dc.amount,
+                collection_price: dc.collection_price
+            }]
+        });  
         res.send({
             status: 200,
             currentbalance: {
-                money,
-                collectibles:[
+                money: dc.money,
+                collectables:[
                     {
-                        collection_name,
-                        amount,
-                        collection_price
+                        collection_name: dc.collection_name,
+                        amount: dc.amount,
+                        collection_price: dc.collection_price
                     }
                 ]
             }
