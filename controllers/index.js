@@ -11,6 +11,7 @@ const createAccount = async (req, res) => {
                 collectibles: []
             }
         });
+        const id = segments[1];
         res.send({
             status: 200,
             id,
