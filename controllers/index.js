@@ -5,17 +5,8 @@ const createAccount = async (req, res) => {
     try{
         const {body: dc } = req;
         const DC = db.collection('dcollections');   
-<<<<<<< HEAD
-        //al crear la cuenta, se crea un objeto con las propiedades señaladas
-        const { _path: { segments } } = await DC.add({
-             current_balance: {
-                money: dc.money,
-                collectables: []
-            }
-        });
-        const id = segments[1];
         //se muestra al usuario
-=======
+
         const { _path: { segments } } = await DC.add({
             current_balance: {
                 money: dc.money,
@@ -23,7 +14,6 @@ const createAccount = async (req, res) => {
             }
         });
         const id = segments[1];
->>>>>>> 55207f66f8ab1e188d9237113156733b01e1beef
         res.send({
             status: 200,
             id,
@@ -31,11 +21,10 @@ const createAccount = async (req, res) => {
             collectables: []
         });
     }catch (error){
-<<<<<<< HEAD
+
         console.log(error); //es importante saber lo que pasa interiormente cuando aparece un error
-=======
-        console.log(error);
->>>>>>> 55207f66f8ab1e188d9237113156733b01e1beef
+
+        
         res.send(error);
     }
   };
@@ -84,13 +73,10 @@ const createAccount = async (req, res) => {
 
 
         const resp = await DC.update({
-<<<<<<< HEAD
+
             money: dc.money + money,
             collectables: [dc.collectables]
-=======
-            money: dc.money,
-            collectables: []
->>>>>>> 55207f66f8ab1e188d9237113156733b01e1beef
+
         });
         res.send({
             status: 200,
@@ -104,7 +90,6 @@ const createAccount = async (req, res) => {
 const CompraVenta = async (req, res) => {
     try{
         const {body: dc } = req;
-<<<<<<< HEAD
         const DC = db.collection('dcollections').doc(id);   
         await DC.get()
             .then(response => {
@@ -125,34 +110,12 @@ const CompraVenta = async (req, res) => {
         const resp = await DC.update({
             money: dc.money - money,
             collectables: [dc.collectables]
-        });
+        });S
         res.send({
             status: 200,
             currentbalance: {
                 money,
                 collectables: []
-=======
-        const DC = db.collection('dcollections'); 
-        const resp = await DC.update({
-            money: dc.money,
-            collectables:[{
-                collection_name: dc.collection_name,
-                amount: dc.amount,
-                collection_price: dc.collection_price
-            }]
-        });  
-        res.send({
-            status: 200,
-            currentbalance: {
-                money: dc.money,
-                collectables:[
-                    {
-                        collection_name: dc.collection_name,
-                        amount: dc.amount,
-                        collection_price: dc.collection_price
-                    }
-                ]
->>>>>>> 55207f66f8ab1e188d9237113156733b01e1beef
             }
         });
     }catch (error){
